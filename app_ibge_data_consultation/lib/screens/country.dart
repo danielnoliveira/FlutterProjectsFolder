@@ -1,6 +1,8 @@
-import 'dart:convert';
-
 import 'package:app_ibge_data_consultation/models/countryList.dart';
+import 'package:app_ibge_data_consultation/widgets/HistoryCountry.dart';
+import 'package:app_ibge_data_consultation/widgets/ListInfoCountry.dart';
+import 'package:app_ibge_data_consultation/widgets/NameCountry.dart';
+import 'package:app_ibge_data_consultation/widgets/SubInfoCountry.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -63,119 +65,77 @@ class CountryScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     pad,
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            '${country['nome']['abreviado']}',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 36,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
+                    NameCountry(
+                        country['nome']['abreviado'],
+                        (String newValue) => countryList.EditCountry(
+                            'nome', newValue, country['id']['M49'])),
                     pad,
                     CachedNetworkImage(
                         imageUrl:
                             'https://www.countryflags.io/${country["id"]["ISO-3166-1-ALPHA-2"]}/flat/64.png'),
                     pad,
-                    Row(
-                      children: [
-                        Text(
-                          'Capital: ${country['governo']['capital']['nome']}',
-                          style: Theme.of(context).textTheme.headline6,
-                        )
-                      ],
-                    ),
+                    SubInfoCountry(
+                        'Capital: ',
+                        country['governo']['capital']['nome'],
+                        (String newValue) => countryList.EditCountry(
+                            'capital', newValue, country['id']['M49'])),
                     pad,
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text(
-                          'Area: ${country['area']['total']} ${country['area']['unidade']['símbolo']}',
-                          style: Theme.of(context).textTheme.headline6,
-                        ))
-                      ],
-                    ),
+                    SubInfoCountry(
+                        'Área total: ',
+                        country['area']['total'],
+                        (String newValue) => countryList.EditCountry(
+                            'area', newValue, country['id']['M49'])),
                     pad,
-                    Row(
-                      children: [
-                        Text(
-                          'Região: ${country['localizacao']['regiao']['nome']}',
-                          style: Theme.of(context).textTheme.headline6,
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text(
-                          (country['localizacao']['sub-regiao'] != null)
-                              ? 'Sub-região: ${country['localizacao']['sub-regiao']['nome']}'
-                              : '',
-                          style: Theme.of(context).textTheme.headline6,
-                        ))
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text(
-                          (country['localizacao']['regiao-intermediaria'] !=
-                                  null)
-                              ? 'Região intermediaria: ${country['localizacao']['regiao-intermediaria']['nome']}'
-                              : '',
-                          style: Theme.of(context).textTheme.headline6,
-                        ))
-                      ],
-                    ),
+                    SubInfoCountry(
+                        'Região: ',
+                        country['localizacao']['regiao']['nome'],
+                        (String newValue) => countryList.EditCountry(
+                            'area', newValue, country['id']['M49'])),
                     pad,
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text('Linguas:',
-                                style: Theme.of(context).textTheme.headline6))
-                      ],
-                    ),
-                    ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: linguas.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Text(
-                            '* ${linguas[index]['nome']}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
-                          );
-                        }),
+                    (country['localizacao']['sub-regiao'] != null)
+                        ? SubInfoCountry(
+                            'Sub-região: ',
+                            country['localizacao']['sub-regiao']['nome'],
+                            (String newValue) => countryList.EditCountry(
+                                'sub-regiao', newValue, country['id']['M49']))
+                        : Text(''),
                     pad,
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text('Unidades monetarias:',
-                                style: Theme.of(context).textTheme.headline6))
-                      ],
-                    ),
-                    ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: moedas.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Text(
-                            '* ${moedas[index]['nome']}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
-                          );
-                        }),
+                    (country['localizacao']['regiao-intermediaria'] != null)
+                        ? SubInfoCountry(
+                            'Região intermediaria: ',
+                            country['localizacao']['regiao-intermediaria']
+                                ['nome'],
+                            (String newValue) => countryList.EditCountry(
+                                'egiao-intermediaria',
+                                newValue,
+                                country['id']['M49']))
+                        : Text(''),
                     pad,
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text('Historia:',
-                                style: Theme.of(context).textTheme.headline6))
-                      ],
-                    ),
+                    ListInfoCountry(
+                        country['linguas'],
+                        'Linguas:',
+                        (String newValue) => countryList.EditCountry(
+                            'add-item-linguas', newValue, country['id']['M49']),
+                        (String indexList) => countryList.EditCountry(
+                            'remove-item-linguas',
+                            indexList,
+                            country['id']['M49'])),
+                    pad,
+                    ListInfoCountry(
+                        country['unidades-monetarias'],
+                        'Unidades monetarias:',
+                        (String newValue) => countryList.EditCountry(
+                            'add-item-coins', newValue, country['id']['M49']),
+                        (String indexList) => countryList.EditCountry(
+                            'remove-item-coins',
+                            indexList,
+                            country['id']['M49'])),
+                    pad,
+                    HistoryCountry(
+                        'Historico: ',
+                        country['historico'],
+                        (String newValue) => countryList.EditCountry(
+                            'historia', newValue, country['id']['M49'])),
                     pad,
                     Row(
                       children: [
