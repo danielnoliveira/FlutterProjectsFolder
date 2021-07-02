@@ -49,4 +49,44 @@ class CountryList extends ChangeNotifier {
     _mutableList = novaLista2;
     notifyListeners();
   }
+
+  void EditCountry(String key, String newValue, int index) {
+    var idx1 = _countrys.indexWhere((element) => element['id']['M49'] == index);
+    switch (key) {
+      case 'nome':
+        _countrys[idx1]['nome']['abreviado'] = newValue;
+        break;
+      case 'capital':
+        _countrys[idx1]['governo']['capital']['nome'] = newValue;
+        break;
+      case 'area':
+        _countrys[idx1]['area']['total'] = newValue;
+        break;
+      case 'regiao':
+        _countrys[idx1]['localizacao']['regiao']['nome'] = newValue;
+        break;
+      case 'sub-regiao':
+        _countrys[idx1]['localizacao']['sub-regiao']['nome'] = newValue;
+        break;
+      case 'regiao-intermediaria':
+        _countrys[idx1]['localizacao']['regiao-intermediaria']['nome'] =
+            newValue;
+        break;
+      case 'add-item-linguas':
+        _countrys[idx1]['linguas'].add({'nome': newValue});
+        break;
+      case 'add-item-coins':
+        _countrys[idx1]['unidades-monetarias'].add({'nome': newValue});
+        break;
+      case 'remove-item-coins':
+        (_countrys[idx1]['unidades-monetarias'] as List)
+            .removeAt(int.parse(newValue));
+        break;
+      case 'historia':
+        _countrys[idx1]['historico'] = newValue;
+        break;
+      default:
+    }
+    notifyListeners();
+  }
 }
