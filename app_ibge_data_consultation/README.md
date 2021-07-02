@@ -13,4 +13,9 @@ App de consulta de dados de paises do IBGE
 
 ## Demonstração
 
+![App](https://media.giphy.com/media/Adz6ZexkdUZG8LkJHv/giphy.gif)
+
+![App](https://media.giphy.com/media/vlTELrdB52yHrVQvR7/giphy.gif)
+
+![App](https://media.giphy.com/media/gutufyhrnCSWjKtuv6/giphy.gif)
 
