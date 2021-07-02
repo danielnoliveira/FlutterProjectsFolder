@@ -82,6 +82,9 @@ class CountryList extends ChangeNotifier {
         (_countrys[idx1]['unidades-monetarias'] as List)
             .removeAt(int.parse(newValue));
         break;
+      case 'remove-item-linguas':
+        (_countrys[idx1]['linguas'] as List).removeAt(int.parse(newValue));
+        break;
       case 'historia':
         _countrys[idx1]['historico'] = newValue;
         break;

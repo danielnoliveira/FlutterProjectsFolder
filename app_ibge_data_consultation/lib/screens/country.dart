@@ -14,8 +14,6 @@ class CountryScreen extends StatelessWidget {
         ModalRoute.of(context)?.settings.arguments as Map<String, int>;
     return Consumer<CountryList>(builder: (context, countryList, child) {
       var country = countryList.countrys[args['index'] as int];
-      var linguas = country['linguas'] as List;
-      var moedas = country['unidades-monetarias'] as List;
       const Padding pad = Padding(
         padding: EdgeInsets.all(10),
       );
@@ -106,7 +104,7 @@ class CountryScreen extends StatelessWidget {
                             country['localizacao']['regiao-intermediaria']
                                 ['nome'],
                             (String newValue) => countryList.EditCountry(
-                                'egiao-intermediaria',
+                                'regiao-intermediaria',
                                 newValue,
                                 country['id']['M49']))
                         : Text(''),

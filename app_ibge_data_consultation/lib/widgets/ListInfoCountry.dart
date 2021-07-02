@@ -43,12 +43,13 @@ class _ListInfoCountryState extends State<ListInfoCountry> {
             itemCount: widget.lista.length,
             itemBuilder: (BuildContext context, int index) {
               return Row(children: [
-                Text(
+                Flexible(
+                    child: Text(
                   '* ${widget.lista[index]['nome']}',
                   style: TextStyle(color: Colors.black, fontSize: 20),
-                ),
+                )),
                 Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(1),
                 ),
                 GestureDetector(
                     child: Icon(Icons.delete_forever_outlined),
