@@ -3,5 +3,5 @@ import 'package:clean_architecture_example1/modules/search/domain/errors/errors.
 import 'package:dartz/dartz.dart';
 
 abstract class SearchRepository {
-  Future<Either<FailureSearch, List<ResultSearch>>>? search(String? searchText);
+  Future<Either<FailureSearch, List<ResultSearch>?>> search(String? searchText);
 }
