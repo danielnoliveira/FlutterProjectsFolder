@@ -22,6 +22,18 @@ void main() {
     expect(result.isRight(), true);
     expect(result.fold(id, id), isA<List<Post>>());
   });
+  test('deve retornar um PostException quando o repository falhar', () async {
+    // arrange
+    final params = PostParamDTO(page: 1);
+    when(() => repository.fetchPost(params)).thenAnswer(
+      (_) async => Left(PostRepositoryException('repository error')),
+    );
+    //act
+    final result = await usecase.call(params: params);
+    //assert
+    expect(result.isLeft(), true);
+    expect(result.fold(id, id), isA<PostRepositoryException>());
+  });
 
   test('deve retornar um InvalidPostParams se page for menor que 1', () async {
     // arrange

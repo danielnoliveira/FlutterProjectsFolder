@@ -8,3 +8,7 @@ abstract class PostException implements Exception {
 class InvalidPostParams extends PostException {
   InvalidPostParams(String message) : super(message);
 }
+
+class PostRepositoryException extends PostException {
+  PostRepositoryException(String message, [StackTrace? e]) : super(message, e);
+}
